@@ -1,21 +1,13 @@
-import { AppProvider } from "./components/providers/AppProvider";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Home from "./pages/Home";
-import "./index.css";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { ProductsPage } from "./Pages/ProductsPage";
+import { ProductDetailsPage } from "./Pages/ProductDetailsPage";
 
-function App() {
+export default function App() {
   return (
-    <AppProvider>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Home />
-        </main>
-        <Footer />
-      </div>
-    </AppProvider>
+    <Routes>
+      <Route path="/" element={<Navigate to="/products" replace />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/products/:id" element={<ProductDetailsPage />} />
+    </Routes>
   );
 }
-
-export default App;

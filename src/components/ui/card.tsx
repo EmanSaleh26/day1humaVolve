@@ -1,32 +1,47 @@
-import type { ReactNode } from "react";
+import * as React from "react";
+import { cn } from "../../lib/utils";
 
-interface CardProps {
-  title: string;
-  description: string;
-  image?: string;
-  children?: ReactNode;
-}
-
-export default function Card({ title, description, image, children }: CardProps) {
+function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden max-w-sm w-full bg-white">
-      {image && (
-        <div className="w-full h-36 bg-gray-50 flex items-center justify-center p-6">
-          <img
-            src={image}
-            alt={title}
-            className="max-w-full max-h-full object-contain"
-          />
-        </div>
+    <div
+      className={cn(
+        "flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white text-neutral-900 shadow-sm",
+        className
       )}
-      <div className="p-4 flex flex-col gap-2">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
-
-        {children && (
-          <div className="pt-2 mt-1 border-t border-gray-100">{children}</div>
-        )}
-      </div>
-    </div>
+      {...props}
+    />
   );
 }
+
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("flex flex-col gap-1.5 px-4 pt-4", className)} {...props} />
+  );
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn("font-semibold leading-snug line-clamp-2", className)}
+      {...props}
+    />
+  );
+}
+
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("text-sm text-neutral-500", className)} {...props} />
+  );
+}
+
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return <div className={cn("px-4", className)} {...props} />;
+}
+
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("flex items-center px-4 pb-4", className)} {...props} />
+  );
+}
+
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
